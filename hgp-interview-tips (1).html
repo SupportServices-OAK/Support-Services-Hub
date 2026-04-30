@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HGP 2026 Interview Day Tips</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #FFD700;
+    --black: #0A0A0A;
+    --dark: #111111;
+    --mid: #1A1A1A;
+    --card: #161616;
+    --yellow-dim: rgba(255,215,0,0.12);
+    --yellow-border: rgba(255,215,0,0.3);
+  }
+
+  body {
+    background: var(--black);
+    color: #fff;
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── PAGE WRAPPER ── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+    position: relative;
+  }
+
+  /* ── BACKGROUND GRID ── */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,215,0,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,215,0,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    margin-bottom: 16px;
+  }
+
+  .logo-icon {
+    flex-shrink: 0;
+    width: 80px;
+    height: 80px;
+  }
+
+  .header-text { flex: 1; }
+
+  .year-badge {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 4px 12px;
+    margin-bottom: 6px;
+  }
+
+  .header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 8vw, 76px);
+    line-height: 0.9;
+    letter-spacing: 1px;
+    color: #fff;
+  }
+
+  .header h1 span { color: var(--yellow); }
+
+  .header-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--yellow) 0%, rgba(255,215,0,0.1) 100%);
+    margin: 24px 0 36px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── INTRO BANNER ── */
+  .intro-banner {
+    position: relative;
+    z-index: 1;
+    background: var(--yellow);
+    color: var(--black);
+    padding: 20px 28px;
+    margin-bottom: 40px;
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 0 100%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .intro-banner .bulb { font-size: 36px; flex-shrink: 0; }
+
+  .intro-banner p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--black);
+  }
+
+  .intro-banner p em {
+    font-style: normal;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    position: relative;
+    z-index: 1;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--yellow-border);
+  }
+
+  /* ── TIPS GRID ── */
+  .tips-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+  .tip-card {
+    background: var(--card);
+    border: 1px solid var(--yellow-border);
+    padding: 24px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+
+  .tip-card:hover {
+    border-color: var(--yellow);
+    transform: translateY(-3px);
+  }
+
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--yellow);
+  }
+
+  .tip-card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #1a1600 0%, #111100 100%);
+    border-color: var(--yellow);
+  }
+
+  @media (max-width: 600px) { .tip-card.featured { grid-column: span 1; } }
+
+  .tip-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--yellow);
+    opacity: 0.18;
+    line-height: 1;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+  }
+
+  .tip-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .tip-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--yellow);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+
+  .tip-body {
+    font-size: 14.5px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.55;
+  }
+
+  .tip-body strong { color: #fff; font-weight: 600; }
+
+  /* ── WHY SECTION ── */
+  .why-section {
+    position: relative;
+    z-index: 1;
+    background: var(--mid);
+    border: 2px solid var(--yellow);
+    padding: 32px 28px;
+    margin-bottom: 40px;
+    clip-path: polygon(0 0, 100% 0, 100% 92%, 97% 100%, 0 100%);
+  }
+
+  .why-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px;
+    color: var(--yellow);
+    margin-bottom: 6px;
+  }
+
+  .why-section .subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .why-prompts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 600px) { .why-prompts { grid-template-columns: 1fr; } }
+
+  .why-prompt {
+    background: var(--yellow-dim);
+    border-left: 3px solid var(--yellow);
+    padding: 12px 14px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.45;
+    font-style: italic;
+  }
+
+  .why-cta {
+    background: var(--yellow);
+    color: var(--black);
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 10px 20px;
+    margin-top: 4px;
+  }
+
+  /* ── DO / DON'T ── */
+  .do-dont {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 600px) { .do-dont { grid-template-columns: 1fr; } }
+
+  .do-col, .dont-col {
+    padding: 22px 20px;
+    border: 1px solid;
+  }
+
+  .do-col { border-color: var(--yellow); background: rgba(255,215,0,0.05); }
+  .dont-col { border-color: rgba(255,80,80,0.4); background: rgba(255,80,80,0.04); }
+
+  .col-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .do-col .col-header { color: var(--yellow); }
+  .dont-col .col-header { color: #ff6b6b; }
+
+  .dd-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.45;
+  }
+
+  .dd-item .dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 6px;
+  }
+
+  .do-col .dot { background: var(--yellow); }
+  .dont-col .dot { background: #ff6b6b; }
+
+  /* ── MINDSET STRIP ── */
+  .mindset {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 12px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .mindset-pill {
+    flex: 1;
+    min-width: 140px;
+    background: var(--yellow);
+    color: var(--black);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 12px 10px;
+    clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--yellow-border);
+    padding-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 12px;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--yellow);
+    letter-spacing: 1px;
+  }
+
+  .footer-logo span { color: rgba(255,255,255,0.4); font-size: 13px; font-family: 'Barlow', sans-serif; display: block; letter-spacing: 1px; }
+
+  .footer-tagline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    text-align: right;
+  }
+
+  /* ── SVG LIGHTBULB ── */
+  .bulb-svg { width: 80px; height: 80px; }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <svg class="bulb-svg" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- bulb glow -->
+      <ellipse cx="50" cy="50" rx="38" ry="38" fill="rgba(255,215,0,0.08)"/>
+      <!-- spiral coil (CFL style) -->
+      <path d="M35 28 Q50 14 65 28 Q78 42 65 52 Q52 62 38 52 Q26 42 38 32 Q50 22 60 32" stroke="#FFD700" stroke-width="5" stroke-linecap="round" fill="none"/>
+      <!-- base -->
+      <rect x="38" y="66" width="24" height="6" rx="2" fill="#FFD700"/>
+      <rect x="40" y="72" width="20" height="5" rx="2" fill="#FFD700"/>
+      <rect x="43" y="77" width="14" height="5" rx="2" fill="#FFD700"/>
+      <!-- rays -->
+      <line x1="50" y1="5" x2="50" y2="0" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+      <line x1="82" y1="18" x2="86" y2="14" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+      <line x1="95" y1="50" x2="100" y2="50" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+      <line x1="18" y1="18" x2="14" y2="14" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+      <line x1="5" y1="50" x2="0" y2="50" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+
+    <div class="header-text">
+      <div class="year-badge">2026 PROGRAM</div>
+      <h1>INTERVIEW<br><span>DAY TIPS</span></h1>
+      <p class="header-sub">The Hidden Genius Project · Your Guide to Show Up &amp; Stand Out</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INTRO BANNER -->
+  <div class="intro-banner">
+    <div class="bulb">💡</div>
+    <p>This is your moment to <em>be real, be you, and be ready.</em> The Hidden Genius Project isn't just looking for the "perfect" student — they're looking for the <em>genuine you.</em> Here's how to bring your best self to Interview Day.</p>
+  </div>
+
+  <!-- TIPS -->
+  <div class="section-label">// Interview Day Tips</div>
+
+  <div class="tips-grid">
+
+    <!-- FEATURED TIP -->
+    <div class="tip-card featured">
+      <div class="tip-num">01</div>
+      <span class="tip-icon">🎯</span>
+      <div class="tip-title">Know &amp; Own Your "Why"</div>
+      <p class="tip-body">
+        Before Interview Day, sit down and <strong>write out why you actually want to be in this program</strong> — not what sounds good, but what's true for you. Do you want to build apps? Start a business? Learn skills your school doesn't teach? Be around people who push you? Whatever it is, <strong>own it and say it with confidence.</strong> Interviewers can tell the difference between a real answer and one that's just trying to impress. Your authentic "why" is your superpower.
+      </p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <span class="tip-icon">👂</span>
+      <div class="tip-title">Listen Before You Speak</div>
+      <p class="tip-body">In a group activity, <strong>pause and hear what others are saying</strong> before jumping in. Strong leaders listen first — it shows you're thoughtful and respect your teammates.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <span class="tip-icon">🙋🏾</span>
+      <div class="tip-title">Speak Up, But Don't Dominate</div>
+      <p class="tip-body">You <strong>need to contribute</strong> — silence won't get you in. Share your ideas clearly. But also make space for others. Being a team player is just as impressive as being vocal.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">04</div>
+      <span class="tip-icon">👀</span>
+      <div class="tip-title">Body Language Talks Too</div>
+      <p class="tip-body"><strong>Sit up. Make eye contact. Put the phone away.</strong> How you carry yourself tells a story before you even open your mouth. Look engaged even when you're not the one speaking.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">05</div>
+      <span class="tip-icon">❓</span>
+      <div class="tip-title">It's Okay to Ask Questions</div>
+      <p class="tip-body">If you don't understand an activity or prompt, <strong>ask for clarification</strong>. Asking smart questions shows curiosity and confidence — not weakness.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">06</div>
+      <span class="tip-icon">🔄</span>
+      <div class="tip-title">Reset Between Rotations</div>
+      <p class="tip-body">Each station is a <strong>fresh start</strong>. If one round didn't go great, shake it off. Take a breath, re-center, and bring full energy to the next one. Resilience is a genius trait.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">07</div>
+      <span class="tip-icon">🤝</span>
+      <div class="tip-title">Build Up, Don't Shut Down</div>
+      <p class="tip-body">If a teammate shares an idea, <strong>build on it</strong> — even if you have a better one. Say "Yes, and..." instead of "No, that won't work." Collaboration is a core HGP value.</p>
+    </div>
+
+    <div class="tip-card">
+      <div class="tip-num">08</div>
+      <span class="tip-icon">✅</span>
+      <div class="tip-title">Be Prepared &amp; On Time</div>
+      <p class="tip-body"><strong>Arrive early. Know the schedule.</strong> Interview Day runs 9AM–1PM with rotating sessions. Being punctual and prepared shows you take the opportunity seriously.</p>
+    </div>
+
+  </div>
+
+  <!-- YOUR "WHY" SECTION -->
+  <div class="why-section">
+    <h2>Express Your "Why"</h2>
+    <p class="subtitle">// The most important thing you'll say all day</p>
+    <p style="font-size:15px; color:rgba(255,255,255,0.7); margin-bottom:18px; line-height:1.55;">
+      At some point during the interview, you'll have a chance to share <strong style="color:#fff">why you genuinely want to join The Hidden Genius Project.</strong> Don't overthink it — just be honest. Use these prompts to help you prepare:
+    </p>
+    <div class="why-prompts">
+      <div class="why-prompt">"When I think about the future I want, I imagine..."</div>
+      <div class="why-prompt">"I want to join HGP because something in me is tired of..."</div>
+      <div class="why-prompt">"The skill I most want to learn or develop is..."</div>
+      <div class="why-prompt">"My community needs people who can..."</div>
+    </div>
+    <div class="why-cta">✍🏾 Write your answer out before Interview Day</div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="section-label">// Do's &amp; Don'ts</div>
+
+  <div class="do-dont">
+    <div class="do-col">
+      <div class="col-header">✅ DO</div>
+      <div class="dd-item"><span class="dot"></span>Introduce yourself with confidence</div>
+      <div class="dd-item"><span class="dot"></span>Share your real experiences and goals</div>
+      <div class="dd-item"><span class="dot"></span>Encourage teammates during group tasks</div>
+      <div class="dd-item"><span class="dot"></span>Stay focused during every station</div>
+      <div class="dd-item"><span class="dot"></span>Ask thoughtful questions when you get the chance</div>
+      <div class="dd-item"><span class="dot"></span>Be yourself — fully and unapologetically</div>
+    </div>
+    <div class="dont-col">
+      <div class="col-header">❌ DON'T</div>
+      <div class="dd-item"><span class="dot"></span>Try to be what you think they want</div>
+      <div class="dd-item"><span class="dot"></span>Talk over or dismiss your teammates</div>
+      <div class="dd-item"><span class="dot"></span>Stay silent the whole time</div>
+      <div class="dd-item"><span class="dot"></span>Fake your answers or experiences</div>
+      <div class="dd-item"><span class="dot"></span>Get discouraged if a round is tough</div>
+      <div class="dd-item"><span class="dot"></span>Forget: they want YOU to succeed today</div>
+    </div>
+  </div>
+
+  <!-- MINDSET STRIP -->
+  <div class="section-label">// Carry This Energy All Day</div>
+  <div class="mindset">
+    <div class="mindset-pill">BE REAL</div>
+    <div class="mindset-pill">BE READY</div>
+    <div class="mindset-pill">BE PRESENT</div>
+    <div class="mindset-pill">BE YOU</div>
+    <div class="mindset-pill">BE GREAT</div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-logo">
+      THE HIDDEN GENIUS PROJECT
+      <span>hiddengeniusproject.org</span>
+    </div>
+    <div class="footer-tagline">
+      Interview Day · 9AM – 1PM<br>
+      You belong in every room you enter.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
